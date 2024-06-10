@@ -10,3 +10,4 @@ class Config:
     lr = 0.0002
     beta1 = 0.5
     ngpu = 1
+    num_gen = 1000

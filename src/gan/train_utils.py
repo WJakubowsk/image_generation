@@ -8,7 +8,7 @@ from config import Config
 def train_real_batch(data, netD, criterion, optimizerD, real_label, device):
     netD.zero_grad()
     real_cpu = data["image"].to(device)
-    b_size = Config.batch_size
+    b_size = real_cpu.size(0)
     label = torch.full((b_size,), real_label, dtype=torch.float, device=device)
     output = netD(real_cpu).view(-1)
     errD_real = criterion(output, label)

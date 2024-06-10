@@ -98,6 +98,7 @@ def train():
     trainer = GaussianDiffusionTrainer(
         net_model, Config.beta_1, Config.beta_T, Config.T
     ).to(device)
+    sched = torch.optim.lr_scheduler.LambdaLR(optim, warmup_lr)
     net_sampler = GaussianDiffusionSampler(
         net_model,
         Config.beta_1,
@@ -130,11 +131,11 @@ def train():
         x = next(infiniteloop(dataloader)).to(device)
         loss = trainer(x)
 
-        # optim.zero_grad()
-        # loss.backward()
-        # torch.nn.utils.clip_grad_norm_(net_model.parameters(), Config.grad_clip)
-        # optim.step()
-        # sched.step()
+        optim.zero_grad()
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(net_model.parameters(), Config.grad_clip)
+        optim.step()
+        sched.step()
 
         ema(net_model, ema_model, Config.ema_decay)
 
