@@ -21,6 +21,8 @@ To obtain the results, simply run one of the following Python scripts:
 ## Results
 
 As a probe of models capabilities, we present the animated process of image generation (here by diffuser):
+
+
 ![GIF](src/ddpm/bedroom_diffusion_animation.gif)
 
 
